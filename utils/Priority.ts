@@ -7,9 +7,8 @@ export const setPrio = (editor: Editor, view: MarkdownView, settings: PrioPlugin
 	}
 	const cursor = editor.getCursor();
 	const line = editor.getLine(cursor.line);
-	const levels = settings.levels;
 	const levelAliases = settings.levelAliases;
-	const level = levels[Math.round((levels.length - 1) / 2)];
+	const level = Math.round(settings.levels/2);
 	const levelAlias = levelAliases[level];
 	const newLine = `${line} #${levelAlias}`;
 	editor.replaceRange(newLine, {line: cursor.line, ch: 0}, {line: cursor.line, ch: line.length});
@@ -22,7 +21,7 @@ export const increasePrio = (editor: Editor, view: MarkdownView, settings: PrioP
 		setPrio(editor, view, settings);
 		return;
 	}
-	const currentLevelIndex = getLevelIndex(editor, view, settings, currentPrio);
+	const currentLevelIndex = settings.levelAliases.indexOf(currentPrio);
 	replacePrio(editor, view, settings, currentLevelIndex - 1 < 0 ? 0 : currentLevelIndex - 1);
 
 }
@@ -33,9 +32,8 @@ export const decreasePrio = (editor: Editor, view: MarkdownView, settings: PrioP
 		setPrio(editor, view, settings);
 		return;
 	}
-	const currentLevelIndex = getLevelIndex(editor, view, settings, currentPrio);
-	const levels = settings.levels;
-	replacePrio(editor, view, settings, currentLevelIndex + 1 > levels.length - 1 ? levels.length - 1 : currentLevelIndex + 1);
+	const currentLevelIndex = settings.levelAliases.indexOf(currentPrio);
+	replacePrio(editor, view, settings, currentLevelIndex + 1 > settings.levels - 1 ? settings.levels - 1 : currentLevelIndex + 1);
 }
 
 export const removePrio = (editor: Editor, view: MarkdownView, settings: PrioPluginSettings) => {
@@ -46,19 +44,10 @@ export const removePrio = (editor: Editor, view: MarkdownView, settings: PrioPlu
 	view.editor.focus();
 }
 
-export const getLevelIndex = (editor: Editor, view: MarkdownView, settings: PrioPluginSettings, prio: string) => {
-	const levels = settings.levels;
-	const levelAliases = settings.levelAliases;
-	const currentLevel = levels.find(level => levelAliases[level] === prio);
-	return levels.indexOf(currentLevel as string);
-}
-
-export const replacePrio = (editor: Editor, view: MarkdownView, settings: PrioPluginSettings, levelIndex: number) => {
+export const replacePrio = (editor: Editor, view: MarkdownView, settings: PrioPluginSettings, level: number) => {
 	const cursor = editor.getCursor();
 	const line = editor.getLine(cursor.line);
-	const levels = settings.levels;
 	const levelAliases = settings.levelAliases;
-	const level = levels[levelIndex];
 	const levelAlias = levelAliases[level];
 	const newLine = line.replace(`#${getPrio(editor, view, settings)}`, `#${levelAlias}`);
 	editor.replaceRange(newLine, {line: cursor.line, ch: 0}, {line: cursor.line, ch: line.length});

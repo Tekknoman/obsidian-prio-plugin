@@ -33,6 +33,18 @@ export class SettingTab extends PluginSettingTab {
 						});
 				});
 		}
+		new Setting(containerEl)
+			.setName('Levels')
+			.setDesc('Set the priority levels to use.')
+			.addSlider((slider) => {
+				slider
+					.setLimits(1, 10, 1)
+					.setValue(this.plugin.settings.levels)
+					.onChange(async (value) => {
+						this.plugin.settings.levels = value;
+					});
+			});
+
 		const presetList = createEl('ol', {
 			cls: 'preset-list',
 			parent: containerEl

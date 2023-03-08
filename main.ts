@@ -1,4 +1,4 @@
-import {App, Editor, MarkdownView, Modal, Notice, Plugin, PluginSettingTab, Setting} from 'obsidian';
+import {App, Editor, MarkdownView, Modal, Notice, Plugin} from 'obsidian';
 import {PrioPluginSettings} from "./utils/Settings";
 import {SettingTab} from "./utils/SettingTab";
 import {decreasePrio, increasePrio, removePrio, setPrio} from "./utils/Priority";
@@ -6,28 +6,28 @@ import {decreasePrio, increasePrio, removePrio, setPrio} from "./utils/Priority"
 
 const DEFAULT_SETTINGS: PrioPluginSettings = {
 	selectedPreset: 'default',
-	levels: ['1', '2', '3', '4', '5', '6'],
-	levelAliases: {
-		'1': 'Major',
-		'2': 'Minor',
-		'3': 'Trivial',
-		'4': 'Cosmetic',
-		'5': 'Enhancement',
-		'6': 'Bug'
-	},
+	levels: 6,
+	levelAliases: [
+		'Major',
+		'Minor',
+		'Trivial',
+		'Cosmetic',
+		'Enhancement',
+		'Bug'
+	],
 	presets: [{
 		id: 'default',
 		name: 'Default',
 		settings: {
-			levels: ['1', '2', '3', '4', '5', '6'],
-			levelAliases: {
-				'1': 'Major',
-				'2': 'Minor',
-				'3': 'Trivial',
-				'4': 'Cosmetic',
-				'5': 'Enhancement',
-				'6': 'Bug'
-			},
+			levels: 6,
+			levelAliases: [
+				'Major',
+				'Minor',
+				'Trivial',
+				'Cosmetic',
+				'Enhancement',
+				'Bug'
+			],
 		}
 	}]
 }
