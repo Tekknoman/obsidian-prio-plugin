@@ -6,3 +6,38 @@ available in the app when your plugin is enabled.
 If your plugin does not need CSS, delete this file.
 
 */
+.preset-list {
+	display: flex;
+	flex-wrap: nowrap;
+	width: 100%;
+	border: 1px solid var(--color-base-10);
+	box-shadow: inset var(--shadow-stationary);
+	padding: 10px;
+}
+
+.preset-list-item {
+	align-items: center;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	width: 100%;
+	padding: 5px;
+	border-top: 1px solid var(--background-modifier-border);
+	border-bottom: 1px solid var(--background-modifier-border);
+}
+
+.preset-list-item:hover {
+	background-color: var(--background-modifier-hover);
+}
+
+.btn {
+	margin: 5px;
+}
+
+.btn-primary {
+	background-color: var(--interactive-accent);
+}
+
+.btn-primary:hover {
+	background-color: var(--interactive-accent-hover);
+}

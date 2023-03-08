@@ -1,17 +1,39 @@
-import { App, Editor, MarkdownView, Modal, Notice, Plugin, PluginSettingTab, Setting } from 'obsidian';
+import {App, Editor, MarkdownView, Modal, Notice, Plugin, PluginSettingTab, Setting} from 'obsidian';
+import {PrioPluginSettings} from "./utils/Settings";
+import {SettingTab} from "./utils/SettingTab";
+import {decreasePrio, increasePrio, removePrio, setPrio} from "./utils/Priority";
 
-// Remember to rename these classes and interfaces!
 
-interface MyPluginSettings {
-	mySetting: string;
+const DEFAULT_SETTINGS: PrioPluginSettings = {
+	selectedPreset: 'default',
+	levels: ['1', '2', '3', '4', '5', '6'],
+	levelAliases: {
+		'1': 'Major',
+		'2': 'Minor',
+		'3': 'Trivial',
+		'4': 'Cosmetic',
+		'5': 'Enhancement',
+		'6': 'Bug'
+	},
+	presets: [{
+		id: 'default',
+		name: 'Default',
+		settings: {
+			levels: ['1', '2', '3', '4', '5', '6'],
+			levelAliases: {
+				'1': 'Major',
+				'2': 'Minor',
+				'3': 'Trivial',
+				'4': 'Cosmetic',
+				'5': 'Enhancement',
+				'6': 'Bug'
+			},
+		}
+	}]
 }
 
-const DEFAULT_SETTINGS: MyPluginSettings = {
-	mySetting: 'default'
-}
-
-export default class MyPlugin extends Plugin {
-	settings: MyPluginSettings;
+export default class PrioPlugin extends Plugin {
+	settings: PrioPluginSettings;
 
 	async onload() {
 		await this.loadSettings();
@@ -28,45 +50,65 @@ export default class MyPlugin extends Plugin {
 		const statusBarItemEl = this.addStatusBarItem();
 		statusBarItemEl.setText('Status Bar Text');
 
-		// This adds a simple command that can be triggered anywhere
+
 		this.addCommand({
-			id: 'open-sample-modal-simple',
-			name: 'Open sample modal (simple)',
-			callback: () => {
-				new SampleModal(this.app).open();
-			}
-		});
-		// This adds an editor command that can perform some operation on the current editor instance
-		this.addCommand({
-			id: 'sample-editor-command',
-			name: 'Sample editor command',
+			id: 'set-prio',
+			name: 'Set priority',
 			editorCallback: (editor: Editor, view: MarkdownView) => {
-				console.log(editor.getSelection());
-				editor.replaceSelection('Sample Editor Command');
-			}
+				setPrio(editor, view, this.settings);
+			},
+			hotkeys: [
+				{
+					modifiers: ['Ctrl', 'Shift', 'Alt'],
+					key: 'p',
+				}
+			]
+		});
+
+		this.addCommand({
+			id: 'remove-prio',
+			name: 'Remove priority',
+			editorCallback: (editor: Editor, view: MarkdownView) => {
+				removePrio(editor, view, this.settings);
+			},
+			hotkeys: [
+				{
+					modifiers: ['Ctrl', 'Shift', 'Alt'],
+					key: 'd',
+				}
+			]
+		})
+
+		this.addCommand({
+			id: 'increase-prio',
+			name: 'Increase priority',
+			editorCallback: (editor: Editor, view: MarkdownView) => {
+				increasePrio(editor, view, this.settings);
+			},
+			hotkeys: [
+				{
+					modifiers: ['Ctrl', 'Shift', 'Alt'],
+					key: 'ArrowUp',
+				}
+			]
 		});
 		// This adds a complex command that can check whether the current state of the app allows execution of the command
 		this.addCommand({
-			id: 'open-sample-modal-complex',
-			name: 'Open sample modal (complex)',
-			checkCallback: (checking: boolean) => {
-				// Conditions to check
-				const markdownView = this.app.workspace.getActiveViewOfType(MarkdownView);
-				if (markdownView) {
-					// If checking is true, we're simply "checking" if the command can be run.
-					// If checking is false, then we want to actually perform the operation.
-					if (!checking) {
-						new SampleModal(this.app).open();
-					}
-
-					// This command will only show up in Command Palette when the check function returns true
-					return true;
+			id: 'decrease-prio',
+			name: 'Decrease priority',
+			editorCallback: (editor: Editor, view: MarkdownView) => {
+				decreasePrio(editor, view, this.settings);
+			},
+			hotkeys: [
+				{
+					modifiers: ['Ctrl', 'Shift', 'Alt'],
+					key: 'ArrowDown',
 				}
-			}
+			]
 		});
 
 		// This adds a settings tab so the user can configure various aspects of the plugin
-		this.addSettingTab(new SampleSettingTab(this.app, this));
+		this.addSettingTab(new SettingTab(this.app, this));
 
 		// If the plugin hooks up any global DOM events (on parts of the app that doesn't belong to this plugin)
 		// Using this function will automatically remove the event listener when this plugin is disabled.
@@ -107,31 +149,4 @@ class SampleModal extends Modal {
 	}
 }
 
-class SampleSettingTab extends PluginSettingTab {
-	plugin: MyPlugin;
 
-	constructor(app: App, plugin: MyPlugin) {
-		super(app, plugin);
-		this.plugin = plugin;
-	}
-
-	display(): void {
-		const {containerEl} = this;
-
-		containerEl.empty();
-
-		containerEl.createEl('h2', {text: 'Settings for my awesome plugin.'});
-
-		new Setting(containerEl)
-			.setName('Setting #1')
-			.setDesc('It\'s a secret')
-			.addText(text => text
-				.setPlaceholder('Enter your secret')
-				.setValue(this.plugin.settings.mySetting)
-				.onChange(async (value) => {
-					console.log('Secret: ' + value);
-					this.plugin.settings.mySetting = value;
-					await this.plugin.saveSettings();
-				}));
-	}
-}
