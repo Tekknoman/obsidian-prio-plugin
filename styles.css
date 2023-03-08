@@ -41,3 +41,8 @@ If your plugin does not need CSS, delete this file.
 .btn-primary:hover {
 	background-color: var(--interactive-accent-hover);
 }
+
+.level-text {
+	max-width: 50px;
+	margin: 5px;
+}
