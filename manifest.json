@@ -1,11 +1,11 @@
 {
-	"id": "obsidian-prio-plugin",
-	"name": "Obsidian Prio Plugin",
+	"id": "prioritize",
+	"name": "Prioritize",
 	"version": "1.0.0",
 	"minAppVersion": "0.15.0",
-	"description": "A plugin to prioritize your tasks and notes in Obsidian",
+	"description": "Prioritize your tasks and notes in Obsidian.",
 	"author": "EloiMusk",
 	"authorUrl": "https://github.com/EloiMusk/",
-	"fundingUrl": "",
+	"fundingUrl": "https://www.buymeacoffee.com/eloimusk",
 	"isDesktopOnly": true
 }

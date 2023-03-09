@@ -1,7 +1,7 @@
 /*Preset list setting*/
 .preset-list {
 	display: flex;
-	flex-wrap: nowrap;
+	flex-flow: column nowrap;
 	width: 100%;
 	border: 1px solid var(--color-base-10);
 	box-shadow: inset var(--shadow-stationary);
@@ -86,4 +86,52 @@
 	max-width: 80%;
 }
 
+/*---------------------*/
+
+/*Preset Modal*/
+.preset-modal {
+	display: flex;
+	flex-flow: column nowrap;
+	width: 100%;
+	padding: 10px;
+}
+
+.preset-modal-title {
+	margin: 5px;
+}
+
+.preset-input {
+	margin: 5px;
+}
+
+.preset-save-btn-group {
+	display: flex;
+	flex-flow: row nowrap;
+	justify-content: space-between;
+	width: 100%;
+}
+
+/*---------------------*/
+
+/*Save confirm modal*/
+.save-confirm-modal{
+	display: flex;
+	flex-flow: column nowrap;
+	width: 100%;
+	padding: 10px;
+}
+
+.save-confirm-modal-title {
+}
+
+.save-confirm-modal-text {
+	margin: 5px;
+}
+
+.save-btn-group {
+	display: flex;
+	flex-flow: row nowrap;
+	justify-content: space-between;
+	width: 100%;
+}
 /*---------------------*/

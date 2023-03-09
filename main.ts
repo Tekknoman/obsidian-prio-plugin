@@ -1,11 +1,10 @@
-import {App, Editor, MarkdownView, Modal, Notice, Plugin} from 'obsidian';
+import {Editor, MarkdownView, Plugin} from 'obsidian';
 import {PrioPluginSettings} from "./utils/Settings";
 import {SettingTab} from "./utils/SettingTab";
 import {decreasePrio, increasePrio, removePrio, setPrio} from "./utils/Priority";
 
 
 const DEFAULT_SETTINGS: PrioPluginSettings = {
-	selectedPreset: 'default',
 	levels: 6,
 	levelAliases: [
 		'Major',
@@ -37,19 +36,6 @@ export default class PrioPlugin extends Plugin {
 
 	async onload() {
 		await this.loadSettings();
-
-		// This creates an icon in the left ribbon.
-		const ribbonIconEl = this.addRibbonIcon('dice', 'Sample Plugin', (evt: MouseEvent) => {
-			// Called when the user clicks the icon.
-			new Notice('This is a notice!');
-		});
-		// Perform additional things with the ribbon
-		ribbonIconEl.addClass('my-plugin-ribbon-class');
-
-		// This adds a status bar item to the bottom of the app. Does not work on mobile apps.
-		const statusBarItemEl = this.addStatusBarItem();
-		statusBarItemEl.setText('Status Bar Text');
-
 
 		this.addCommand({
 			id: 'set-prio',
@@ -121,22 +107,6 @@ export default class PrioPlugin extends Plugin {
 
 	async saveSettings() {
 		await this.saveData(this.settings);
-	}
-}
-
-class SampleModal extends Modal {
-	constructor(app: App) {
-		super(app);
-	}
-
-	onOpen() {
-		const {contentEl} = this;
-		contentEl.setText('Woah!');
-	}
-
-	onClose() {
-		const {contentEl} = this;
-		contentEl.empty();
 	}
 }
 
