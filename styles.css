@@ -1,11 +1,4 @@
-/*
-
-This CSS file will be included with your plugin, and
-available in the app when your plugin is enabled.
-
-If your plugin does not need CSS, delete this file.
-
-*/
+/*Preset list setting*/
 .preset-list {
 	display: flex;
 	flex-wrap: nowrap;
@@ -30,8 +23,25 @@ If your plugin does not need CSS, delete this file.
 	background-color: var(--background-modifier-hover);
 }
 
+.mod-danger {
+	background-color: var(--background-modifier-error);
+	color: var(--text-error);
+}
+
+.mod-danger:hover {
+	background-color: var(--background-modifier-error-hover);
+	color: var(--text-faint);
+}
+
 .btn {
 	margin: 5px;
+}
+
+.btn:disabled {
+	background-color: var(--color-base-10) !important;
+	color: var(--color-base-60) !important;
+	border: none !important;
+	box-shadow: none !important;
 }
 
 .btn-primary {
@@ -42,7 +52,38 @@ If your plugin does not need CSS, delete this file.
 	background-color: var(--interactive-accent-hover);
 }
 
+/*---------------------*/
+
+/*Level Slider setting*/
 .level-text {
 	max-width: 50px;
 	margin: 5px;
 }
+
+/*---------------------*/
+
+/*Level aliases list setting*/
+.level-aliases-list {
+	display: flex;
+	flex-flow: column nowrap;
+	width: 100%;
+	padding: 10px;
+}
+
+.level-aliases-list-item {
+	align-items: center;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	width: 100%;
+	padding: 5px;
+	border-top: 1px solid var(--background-modifier-border);
+	border-bottom: 1px solid var(--background-modifier-border);
+}
+
+.level-aliases-list-item-input {
+	margin-left: 5px;
+	max-width: 80%;
+}
+
+/*---------------------*/
