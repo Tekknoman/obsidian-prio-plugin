@@ -6,9 +6,6 @@ import {PrioPluginSettings} from "./Settings";
 export class SettingTab extends PluginSettingTab {
 	plugin: PrioPlugin;
 	saveConfirm: SaveConfirm;
-
-	previousSettings: PrioPluginSettings;
-
 	modified = false;
 
 	constructor(app: App, plugin: PrioPlugin) {
@@ -26,7 +23,6 @@ export class SettingTab extends PluginSettingTab {
 	}
 
 	display(): void {
-		this.previousSettings = Object.assign({}, this.plugin.settings);
 		const {containerEl} = this;
 		this.plugin.registerDomEvent(document, 'change', () => {
 			this.modified = true;
@@ -131,6 +127,7 @@ export class SettingTab extends PluginSettingTab {
 			this.plugin.saveSettings().then(() => {
 				this.plugin.loadSettings().then(() => {
 					new Notice('Settings saved successfully!');
+					this.modified = false;
 				});
 			});
 		});
@@ -285,5 +282,6 @@ class SaveConfirm extends Modal {
 	onClose() {
 		const {contentEl} = this;
 		contentEl.empty();
+		this.settingsTab.modified = false;
 	}
 }
