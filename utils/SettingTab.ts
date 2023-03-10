@@ -139,17 +139,15 @@ export class SettingTab extends PluginSettingTab {
 		this.generateLevelAliasList(this.plugin.settings, levelAliasesList, [saveButton]);
 
 		containerEl.append(saveButton);
-		saveButton.addEventListener('click', () => {
+		saveButton.addEventListener('click', async () => {
 			if (!this.isValid(levelAliasesList)) {
 				return;
 			}
 			this.setAliases(this.plugin.settings, levelAliasesList);
-			this.plugin.saveSettings().then(() => {
-				this.plugin.loadSettings().then(() => {
-					new Notice('Settings saved successfully!');
-					this.modified = false;
-				});
-			});
+			await this.plugin.saveSettings();
+			await this.plugin.loadSettings();
+			new Notice('Settings saved successfully!');
+			this.modified = false;
 		});
 	}
 
@@ -196,7 +194,7 @@ export class SettingTab extends PluginSettingTab {
 		return Date.now().toString(36) + Math.random().toString(36);
 	}
 
-	addPreset = (name: string, settings: PrioPluginSettings, presetList: HTMLOListElement) => {
+	addPreset = async (name: string, settings: PrioPluginSettings, presetList: HTMLOListElement) => {
 		if (!name || !settings || !this.presetIsValid(name, settings.presets ?? [], this.plugin.settings.presets?.length ?? 0 - 1)) {
 			return;
 		}
@@ -221,11 +219,10 @@ export class SettingTab extends PluginSettingTab {
 			}];
 		}
 		this.generatePresetList(this.plugin.settings.presets, presetList);
-		this.plugin.saveSettings().then(() => {
-			this.plugin.loadSettings().then(() => {
-				new Notice('Preset applied successfully!');
-			});
-		});
+		await this.plugin.saveSettings()
+		await this.plugin.loadSettings()
+		new Notice('Preset applied successfully!');
+
 		this.display();
 	}
 
@@ -421,19 +418,16 @@ class SaveConfirm extends Modal {
 			cls: ['btn', 'mod-danger'],
 		});
 
-		saveButton.addEventListener('click', () => {
-			this.settingsTab.plugin.saveSettings().then(() => {
-				this.settingsTab.plugin.loadSettings().then(() => {
-					new Notice('Settings saved successfully!');
-				});
-			});
+		saveButton.addEventListener('click', async () => {
+			await this.settingsTab.plugin.saveSettings()
+			await this.settingsTab.plugin.loadSettings()
+			new Notice('Settings saved successfully!');
 			this.close();
 		});
 
-		discardButton.addEventListener('click', () => {
-			this.settingsTab.plugin.loadSettings().then(() => {
-				new Notice('Settings discarded successfully!');
-			});
+		discardButton.addEventListener('click', async () => {
+			await this.settingsTab.plugin.loadSettings()
+			new Notice('Settings discarded successfully!');
 			this.close();
 		});
 
@@ -500,8 +494,8 @@ class AddPresetModal extends Modal {
 			cls: ['btn'],
 		});
 
-		addButton.addEventListener('click', () => {
-			this.settingsTab.addPreset(presetName, this.settingsTab.plugin.settings, this.presetsList);
+		addButton.addEventListener('click', async () => {
+			await this.settingsTab.addPreset(presetName, this.settingsTab.plugin.settings, this.presetsList);
 			this.close();
 		});
 
