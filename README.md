@@ -18,21 +18,17 @@ You can install the Prioritize plugin via the Community Plugin Browser in Obsidi
 
 ## Usage
 
-1. After installing and configuring the plugin, you can mark any note or task with a priority level.
-2. To mark something with medium priority, select the text you want to prioritize and press `ctrl+shift+alt+p`.
-3. The text will be marked with a tag that corresponds to the priority level at the end of the line.
-4. You can customize the number of priority levels and their names via the plugin settings.
-5. You can switch between different presets and create your own presets.
-6. To remove priority, press `ctrl+shift+alt+d`.
-7. To increase priority, press `ctrl+shift+alt+ArrowUp`.
-8. To decrease priority, press `ctrl+shift+alt+ArrowDown`.
+After installing and configuring the plugin, you can prioritize notes or tasks by selecting the text you want to prioritize and choosing from different priority levels. You can configure the number of levels and assign a name for each level of priority in the plugin settings. Once you have set your preferences, you can easily switch between different presets or create your own.
 
-| HotKeys            | Action            |
-|--------------------|-------------------|
-| `ctrl+shift+alt+p` | Set priority      |
-| `ctrl+shift+alt+d` | Remove priority   |
-| `Ctrl+Shift+Alt+↑` | Increase priority |
-| `Ctrl+Shift+Alt+↓` | Decrease priority |
+Here is a list of all the available actions:
+
+- `Set Priority`: Mark selected text with a priority level.
+- `Remove Priority`: Remove a previously set priority level.
+- `Increase Priority`: Increase the priority level of selected text.
+- `Decrease Priority`: Decrease the priority level of selected text.
+
+To use these actions, you can either access them from the Command Palette or create a hotkey for each action.
+
 ### Configuration
 
 In the settings tab, you can configure the Prioritize plugin to your liking. This includes setting the number of levels of priority and assigning a name for each level. To save your configuration, you need to click the `Save` button.
@@ -51,9 +47,8 @@ If you'd like to contribute to the Prioritize plugin, please fork the GitHub rep
 
 The Prioritize plugin is released under the GNU License.
 
-
-
 ## Improve code quality with eslint (optional)
+
 - [ESLint](https://eslint.org/) is a tool that analyzes your code to quickly find problems. You can run ESLint against your plugin to find common bugs and ways to improve your code. 
 - To use eslint with this project, make sure to install eslint from terminal:
   - `npm install -g eslint`
