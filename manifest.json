@@ -1,7 +1,7 @@
 {
 	"id": "prioritize",
 	"name": "Prioritize",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"minAppVersion": "0.15.0",
 	"description": "Prioritize your tasks and notes in Obsidian.",
 	"author": "EloiMusk",

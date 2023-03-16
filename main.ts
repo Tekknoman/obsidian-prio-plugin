@@ -42,13 +42,7 @@ export default class PrioPlugin extends Plugin {
 			name: 'Set priority',
 			editorCallback: (editor: Editor, view: MarkdownView) => {
 				setPrio(editor, view, this.settings);
-			},
-			hotkeys: [
-				{
-					modifiers: ['Ctrl', 'Shift', 'Alt'],
-					key: 'p',
-				}
-			]
+			}
 		});
 
 		this.addCommand({
@@ -56,13 +50,7 @@ export default class PrioPlugin extends Plugin {
 			name: 'Remove priority',
 			editorCallback: (editor: Editor, view: MarkdownView) => {
 				removePrio(editor, view, this.settings);
-			},
-			hotkeys: [
-				{
-					modifiers: ['Ctrl', 'Shift', 'Alt'],
-					key: 'd',
-				}
-			]
+			}
 		})
 
 		this.addCommand({
@@ -70,13 +58,7 @@ export default class PrioPlugin extends Plugin {
 			name: 'Increase priority',
 			editorCallback: (editor: Editor, view: MarkdownView) => {
 				increasePrio(editor, view, this.settings);
-			},
-			hotkeys: [
-				{
-					modifiers: ['Ctrl', 'Shift', 'Alt'],
-					key: 'ArrowUp',
-				}
-			]
+			}
 		});
 		// This adds a complex command that can check whether the current state of the app allows execution of the command
 		this.addCommand({
@@ -84,13 +66,7 @@ export default class PrioPlugin extends Plugin {
 			name: 'Decrease priority',
 			editorCallback: (editor: Editor, view: MarkdownView) => {
 				decreasePrio(editor, view, this.settings);
-			},
-			hotkeys: [
-				{
-					modifiers: ['Ctrl', 'Shift', 'Alt'],
-					key: 'ArrowDown',
-				}
-			]
+			}
 		});
 
 		// This adds a settings tab so the user can configure various aspects of the plugin
